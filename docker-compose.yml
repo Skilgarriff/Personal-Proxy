@@ -1,8 +1,22 @@
 version: '2'
 services:
+  proxy:
+      image: zzrot/alpine-caddy
+      ports:
+          -   "80:80"
+          -   "443:443"
+      volumes:
+          -   ./Caddyfile:/etc/Caddyfile
+          -   ./.caddy:/root/.caddy
+      restart: always
+      networks:
+          - frontend
+
 
   seankilgarriff.com:
       image: zzrot/alpine-caddy
+      expose:
+          -   80
       volumes:
         - ./seankilgarriff.com/public:/var/www/html
       networks:
@@ -10,31 +24,27 @@ services:
 
   casualmastery.com:
       image: zzrot/alpine-ghost
+      environment:
+        PROD_DOMAIN: https://casualmastery.com
+        NODE_ENV: production
+      volumes:
+        - ./casualmastery.com/:/var/lib/ghost/
+      expose:
+          -   2368
       networks:
         - frontend
 
+  blog.seankilgarriff.com:
+    image: zzrot/alpine-ghost
+    environment:
+      PROD_DOMAIN: https://blog.seankilgarriff.com
+      NODE_ENV: production
+    volumes:
+      - ./blog.seankilgarriff.com/:/var/lib/ghost/
+    expose:
+        -   2368
+    networks:
+      - frontend
 
 networks:
       frontend:
-
-version: '2'
-services:
-
-    seankilgarriff.com:
-        ports:
-            -   "80:80"
-
-    calc.seankilgarriff.com:
-        ports:
-            -   "81:3000"
-
-    developer:
-        image: zzrot/lazycat
-        container_name: dev
-        volumes:
-            -   ./seankilgarriff.com:/usr/src/app:rw
-        ports:
-            -   "3000:3000"
-            -   "3001:3001"
-        networks:
-            - frontend
