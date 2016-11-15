@@ -1,0 +1,14 @@
+0.0.0.0:80
+
+root /var/www/html
+
+rewrite / {
+   r  (.*)
+   to /index.html
+}
+
+log stdout
+
+errors stdout
+
+ext .html .htm .php
