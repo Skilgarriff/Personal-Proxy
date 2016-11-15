@@ -36,6 +36,30 @@ www.seankilgarriff.com {
 	redir https://seankilgarriff.com
 }
 
+blog.seankilgarriff.com {
+  proxy / blog.seankilgarriff.com:2368 {
+    proxy_header Host {host}
+    proxy_header X-Real-IP {remote}
+    proxy_header X-Forwarded-Proto {scheme}
+  }
+}
+
+admin.seankilgarriff.com {
+  proxy / admin.seankilgarriff.com:80 {
+    proxy_header Host {host}
+    proxy_header X-Real-IP {remote}
+    proxy_header X-Forwarded-Proto {scheme}
+  }
+}
+
+status.seankilgarriff.com {
+  proxy / status.seankilgarriff.com:80 {
+    proxy_header Host {host}
+    proxy_header X-Real-IP {remote}
+    proxy_header X-Forwarded-Proto {scheme}
+  }
+}
+
 casualmastery.com {
 			proxy / casualmastery.com:2368 {
 				proxy_header Host {host}
