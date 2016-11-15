@@ -18,6 +18,7 @@ services:
       expose:
           -   80
       volumes:
+        - ./Caddyfile.Reactjs:/etc/Caddyfile
         - ./seankilgarriff.com/dist:/var/www/html
       networks:
         - frontend
