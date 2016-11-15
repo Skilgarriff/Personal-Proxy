@@ -18,9 +18,27 @@ services:
       expose:
           -   80
       volumes:
-        - ./seankilgarriff.com/public:/var/www/html
+        - ./seankilgarriff.com/dist:/var/www/html
       networks:
         - frontend
+
+  admin.seankilgarriff.com:
+    image: zzrot/alpine-caddy
+    expose:
+        -   80
+    volumes:
+      - ./admin.seankilgarriff.com/dist:/var/www/html
+    networks:
+      - frontend
+
+  status.seankilgarriff.com:
+    image: zzrot/alpine-caddy
+    expose:
+        -   80
+    volumes:
+      - ./status.seankilgarriff.com/dist:/var/www/html
+    networks:
+      - frontend
 
   casualmastery.com:
       image: zzrot/alpine-ghost
