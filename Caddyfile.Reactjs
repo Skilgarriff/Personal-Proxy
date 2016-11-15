@@ -4,7 +4,7 @@ root /var/www/html
 
 rewrite / {
    r  (.*)
-   to /index.html
+   to {path} {path}/ /index.html
 }
 
 log stdout
